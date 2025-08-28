@@ -8,6 +8,7 @@ interface User {
   firstName: string;
   lastName: string;
   userType: 'jobseeker' | 'employer';
+  role: 'user' | 'admin';
 }
 
 interface AuthContextType {
@@ -16,6 +17,7 @@ interface AuthContextType {
   register: (userData: RegisterData) => Promise<boolean>;
   logout: () => void;
   isLoading: boolean;
+  isAdmin: () => boolean;
 }
 
 interface RegisterData {
@@ -59,7 +61,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         email: email,
         firstName: 'John',
         lastName: 'Doe',
-        userType: 'jobseeker'
+        userType: 'jobseeker',
+        role: email === 'admin@gocareer.com' ? 'admin' : 'user'
       };
 
       // For demo purposes, accept any email/password combination
@@ -88,7 +91,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         email: userData.email,
         firstName: userData.firstName,
         lastName: userData.lastName,
-        userType: userData.userType
+        userType: userData.userType,
+        role: userData.email === 'admin@gocareer.com' ? 'admin' : 'user'
       };
 
       setUser(newUser);
@@ -107,12 +111,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('gocareer_user');
   };
 
+  const isAdmin = () => {
+    return user?.role === 'admin';
+  };
+
   const value = {
     user,
     login,
     register,
     logout,
-    isLoading
+    isLoading,
+    isAdmin
   };
 
   return (

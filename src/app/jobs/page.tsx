@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SearchBar } from "@/components/SearchBar";
 import { JobCard } from "@/components/JobCard";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { useState } from "react";
 
 // Mock data untuk contoh
@@ -109,11 +110,12 @@ export default function JobsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      {/* Search Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        
+        {/* Search Section */}
+        <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">
@@ -274,5 +276,6 @@ export default function JobsPage() {
 
       <Footer />
     </div>
+    </ProtectedRoute>
   );
 }

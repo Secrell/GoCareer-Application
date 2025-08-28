@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JobCard } from "@/components/JobCard";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Link from "next/link";
 
 // Mock data untuk contoh
@@ -88,11 +89,12 @@ const companyJobs = [
 
 export default function CompanyDetailPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      {/* Company Header */}
-      <section className="bg-white shadow-sm">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        
+        {/* Company Header */}
+        <section className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-8">
             {/* Company Logo */}
@@ -306,5 +308,6 @@ export default function CompanyDetailPage() {
 
       <Footer />
     </div>
+    </ProtectedRoute>
   );
 }

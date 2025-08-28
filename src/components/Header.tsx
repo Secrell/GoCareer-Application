@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 
 export function Header() {
-  const { user, logout } = useAuth();
+  const { user, logout, isAdmin } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -50,15 +50,32 @@ export function Header() {
                     </span>
                   </div>
                   <div className="hidden sm:block">
-                    <p className="text-sm font-medium text-gray-900">
-                      {user.firstName} {user.lastName}
-                    </p>
-                    <p className="text-xs text-gray-500 capitalize">
-                      {user.userType === 'jobseeker' ? 'Pencari Kerja' : 'Perekrut'}
-                    </p>
+                    <div className="flex items-center space-x-2">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">
+                          {user.firstName} {user.lastName}
+                        </p>
+                        <p className="text-xs text-gray-500 capitalize">
+                          {user.userType === 'jobseeker' ? 'Pencari Kerja' : 'Perekrut'}
+                        </p>
+                      </div>
+                      {isAdmin() && (
+                        <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full font-medium">
+                          Admin
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
+                  {isAdmin() && (
+                    <Link
+                      href="/admin"
+                      className="text-red-700 hover:text-red-900 transition-colors text-sm font-medium"
+                    >
+                      Admin Panel
+                    </Link>
+                  )}
                   <Link
                     href="/profile"
                     className="text-gray-700 hover:text-blue-600 transition-colors text-sm"

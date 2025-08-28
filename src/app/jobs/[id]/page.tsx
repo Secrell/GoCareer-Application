@@ -2,6 +2,7 @@
 
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { useState } from "react";
 
 // Mock data untuk contoh
@@ -43,10 +44,11 @@ export default function JobDetailPage() {
   const [showApplicationForm, setShowApplicationForm] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Job Header */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-8">
           <div className="flex justify-between items-start mb-6">
@@ -260,5 +262,6 @@ export default function JobDetailPage() {
 
       <Footer />
     </div>
+    </ProtectedRoute>
   );
 }
